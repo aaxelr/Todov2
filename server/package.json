@@ -5,13 +5,18 @@
     "mongoose": "^6.0.11"
   },
   "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.25.2",
     "nodemon": "^2.0.14"
   },
   "name": "server",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "npx nodemon main"
+    "start": "npx nodemon main",
+    "lint": "npx eslint --ignore-path .gitignore .",
+    "lint-fix": "npx eslint --ignore-path .gitignore . --fix"
   },
   "author": "",
   "license": "ISC",
