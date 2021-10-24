@@ -9,7 +9,7 @@ import {
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-function TodoForm({ onToggleTodoForm }) {
+function TodoForm({ onToggleTodoForm, onSaveTodo }) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
@@ -22,8 +22,17 @@ function TodoForm({ onToggleTodoForm }) {
   };
 
   const handleSubmit = (e) => {
+    console.log('submitting');
     e.preventDefault();
-    // TODO add submit function
+    // TODO add author
+    const todoData = {
+      title,
+      body,
+      last_edited: new Date(),
+    };
+    onSaveTodo(todoData);
+    setTitle('');
+    setBody('');
   };
 
   return (
@@ -60,6 +69,7 @@ function TodoForm({ onToggleTodoForm }) {
             variant="contained"
             startIcon={<CheckCircleIcon />}
             color="success"
+            type="submit"
           >
             Save Todo
           </Button>
@@ -72,6 +82,7 @@ function TodoForm({ onToggleTodoForm }) {
 // LINK https://www.npmjs.com/package/prop-types
 TodoForm.propTypes = {
   onToggleTodoForm: PropTypes.func.isRequired,
+  onSaveTodo: PropTypes.func.isRequired,
 };
 
 export default TodoForm;
