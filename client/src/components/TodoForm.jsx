@@ -23,9 +23,7 @@ function TodoForm({ onToggleTodoForm, onSaveTodo }) {
   };
 
   const handleSubmit = (e) => {
-    console.log('submitting');
     e.preventDefault();
-    // TODO add submit function
     const todoData = {
       uuid: uuid(),
       title,
