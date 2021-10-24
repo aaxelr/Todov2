@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { v4 as uuid } from 'uuid';
 import {
   TextField,
   Button,
@@ -24,11 +25,11 @@ function TodoForm({ onToggleTodoForm, onSaveTodo }) {
   const handleSubmit = (e) => {
     console.log('submitting');
     e.preventDefault();
-    // TODO add author
+    // TODO add submit function
     const todoData = {
+      uuid: uuid(),
       title,
       body,
-      last_edited: new Date(),
     };
     onSaveTodo(todoData);
     setTitle('');
@@ -37,7 +38,9 @@ function TodoForm({ onToggleTodoForm, onSaveTodo }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Container maxWidth="xs">
+      <Container
+        maxWidth="xs"
+      >
         <TextField
           id="todo-title"
           label="Title"
@@ -45,6 +48,9 @@ function TodoForm({ onToggleTodoForm, onSaveTodo }) {
           onChange={handleTitleChange}
           required
           fullWidth
+          sx={{
+            margin: '.5rem',
+          }}
         />
         <TextField
           id="todo-body"
@@ -55,8 +61,16 @@ function TodoForm({ onToggleTodoForm, onSaveTodo }) {
           onChange={handleBodyChange}
           required
           fullWidth
+          sx={{
+            margin: '.5rem',
+          }}
         />
-        <ButtonGroup fullWidth>
+        <ButtonGroup
+          fullWidth
+          sx={{
+            margin: '.5rem',
+          }}
+        >
           <Button
             variant="outlined"
             startIcon={<CancelIcon />}
