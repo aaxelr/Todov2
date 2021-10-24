@@ -1,19 +1,20 @@
 import { Button } from '@mui/material';
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+// import axios from 'axios';
 
 import TodoForm from './TodoForm';
 
-function NewTodo() {
+function NewTodo({ onAddTodo }) {
   const [showTodoForm, setShowTodoForm] = useState(false);
 
   const handleToggleTodoForm = () => {
-    setShowTodoForm(!showTodoForm);
+    setShowTodoForm((prevState) => !prevState);
   };
 
-  // TODO lift state to App.jsx
-  const handleSaveTodo = () => {
-    // TODO handle
+  const handleSaveTodo = (todoData) => {
+    onAddTodo(todoData);
   };
 
   return (
@@ -36,5 +37,9 @@ function NewTodo() {
     </div>
   );
 }
+
+NewTodo.propTypes = {
+  onAddTodo: PropTypes.func.isRequired,
+};
 
 export default NewTodo;
