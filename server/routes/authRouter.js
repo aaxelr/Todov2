@@ -1,28 +1,22 @@
 const express = require('express');
-const passport = require('passport');
+const {
+  authUser,
+  authUserCallback,
+  logoutUser,
+} = require('../controllers/authController');
 
 const router = express.Router();
 
-// TODO update redirect routes
-const successRedirect = 'http://localhost:5000';
-const failureRedirect = 'http://localhost:5000';
-
 router
   .route('/auth/google')
-  .get(passport.authenticate('google', { scope: ['profile', 'email'] }));
+  .get(authUser);
 
 router
   .route('/auth/google/callback')
-  .get(passport.authenticate('google', {
-    successRedirect,
-    failureRedirect,
-  }));
+  .get(authUserCallback);
 
 router
   .route('/logout')
-  .get((req, res) => {
-    req.logout();
-    res.status(205).end();
-  });
+  .get(logoutUser);
 
 module.exports = router;
