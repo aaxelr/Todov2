@@ -2,7 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
+const passport = require('passport');
 const MongoStore = require('connect-mongo');
+require('./auth/passportGoogle');
+
+const authRouter = require('./routes/authRouter');
 
 const app = express();
 
@@ -24,9 +28,14 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 24 * 7,
   },
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
+app.use('/api/v1', authRouter);
+
+// TODO remove test route
 app.get('/', (req, res) => {
-  res.send('<h1>TJABA</h1>');
+  res.json(req.user || 'not logged in');
 });
 
 module.exports = app;
