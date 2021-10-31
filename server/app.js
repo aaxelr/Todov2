@@ -8,6 +8,7 @@ require('./auth/passportGoogle');
 
 const authRouter = require('./routes/authRouter');
 const indexRouter = require('./routes/indexRouter');
+const todoRouter = require('./routes/todoRouter');
 
 const app = express();
 
@@ -34,5 +35,6 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+app.use('/api/v1/todos', todoRouter);
 
 module.exports = app;
