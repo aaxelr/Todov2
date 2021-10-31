@@ -28,16 +28,17 @@ exports.createTodo = async (req, res) => {
 exports.updateTodo = async (req, res) => {
   const { id } = req.params;
   const { title, body } = req.body;
+  const updateDate = Date.now();
   try {
     const updatedTodo = await Todo.findOneAndUpdate(
       { uuid: id },
-      { title, body },
+      { title, body, updated: updateDate },
       { new: true },
     );
     if (!updatedTodo) res.status(404).json('No such ID');
     res.json(updatedTodo);
   } catch (error) {
-    res.send(404).json({ message: error.message });
+    res.status(404).json({ message: error.message });
   }
 };
 
