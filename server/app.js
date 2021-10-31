@@ -33,6 +33,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', indexRouter);
-app.use('/api/v1', authRouter);
+app.use('/auth', authRouter);
 
 module.exports = app;

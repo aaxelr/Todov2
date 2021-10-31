@@ -7,11 +7,11 @@ const {
 const router = express.Router();
 
 router
-  .route('/auth/google')
+  .route('/google')
   .get(authUser);
 
 router
-  .route('/auth/google/callback')
+  .route('/google/callback')
   .get(authUserCallback);
 
 module.exports = router;
