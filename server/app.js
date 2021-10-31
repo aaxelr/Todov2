@@ -7,6 +7,7 @@ const MongoStore = require('connect-mongo');
 require('./auth/passportGoogle');
 
 const authRouter = require('./routes/authRouter');
+const indexRouter = require('./routes/indexRouter');
 
 const app = express();
 
@@ -31,11 +32,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/', indexRouter);
 app.use('/api/v1', authRouter);
-
-// TODO remove test route
-app.get('/', (req, res) => {
-  res.json(req.user || 'not logged in');
-});
 
 module.exports = app;
