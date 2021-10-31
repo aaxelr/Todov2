@@ -10,3 +10,7 @@ exports.authUserCallback = passport.authenticate('google', {
   successRedirect,
   failureRedirect,
 });
+
+exports.getUser = (req, res) => {
+  res.json(req.user);
+};
