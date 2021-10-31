@@ -2,7 +2,6 @@ const express = require('express');
 const {
   authUser,
   authUserCallback,
-  logoutUser,
 } = require('../controllers/authController');
 
 const router = express.Router();
@@ -14,9 +13,5 @@ router
 router
   .route('/auth/google/callback')
   .get(authUserCallback);
-
-router
-  .route('/logout')
-  .get(logoutUser);
 
 module.exports = router;

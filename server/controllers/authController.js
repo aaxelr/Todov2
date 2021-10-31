@@ -10,8 +10,3 @@ exports.authUserCallback = passport.authenticate('google', {
   successRedirect,
   failureRedirect,
 });
-
-exports.logoutUser = (req, res) => {
-  req.logout();
-  res.status(205).end();
-};
