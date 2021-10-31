@@ -5,6 +5,7 @@ const session = require('express-session');
 const passport = require('passport');
 const MongoStore = require('connect-mongo');
 require('./auth/passportGoogle');
+const { isAuthenticated } = require('./middlewares/isAuthenticated');
 
 const authRouter = require('./routes/authRouter');
 const indexRouter = require('./routes/indexRouter');
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors({
   origin: corsOrigin,
+  credentials: true,
 }));
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -35,6 +37,6 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
-app.use('/api/v1/todos', todoRouter);
+app.use('/api/v1/todos', isAuthenticated, todoRouter);
 
 module.exports = app;
