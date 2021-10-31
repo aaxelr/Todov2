@@ -1,7 +1,8 @@
+/* eslint-disable no-underscore-dangle */
 const Todo = require('../models/todoModel');
 
 exports.getAllTodos = async (req, res) => {
-  const authorId = '617dcd0d87a886b43d768143'; // req.user._id;
+  const authorId = req.user._id;
 
   try {
     const todos = await Todo.find({ author: authorId }).sort({ updated: -1 });
@@ -13,7 +14,7 @@ exports.getAllTodos = async (req, res) => {
 
 exports.createTodo = async (req, res) => {
   const todo = req.body;
-  const authorId = '617dcd0d87a886b43d768143'; // req.user._id;
+  const authorId = req.user._id;
   const newTodo = new Todo({ ...todo, author: authorId });
 
   try {
