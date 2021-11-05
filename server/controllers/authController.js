@@ -1,7 +1,7 @@
 const passport = require('passport');
 
 // TODO update redirect routes
-const successRedirect = 'http://localhost:3000/dashboard';
+const successRedirect = 'http://localhost:3000/login/success';
 const failureRedirect = 'http://localhost:3000/login/error';
 
 exports.authUser = passport.authenticate('google', { scope: ['profile', 'email'] });
