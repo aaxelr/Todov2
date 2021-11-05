@@ -9,7 +9,9 @@ passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL,
-}, async (accessToken, refreshToken, profile, done) => {
+  passReqToCallback: true,
+},
+async (req, accessToken, refreshToken, profile, done) => {
   const newUser = {
     fullName: `${profile.name.givenName} ${profile.name.familyName}`,
     email: profile.emails[0].value,
@@ -30,15 +32,12 @@ passport.use(new GoogleStrategy({
   }
 }));
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
+// eslint-disable-next-line no-underscore-dangle
+passport.serializeUser((user, done) => done(null, user._id));
 
 passport.deserializeUser(async (id, done) => {
   const user = await User.findById(id)
-    .catch((error) => {
-      done(error, null);
-    });
+    .catch((error) => done(error, null));
 
   if (user) done(null, user);
 });
