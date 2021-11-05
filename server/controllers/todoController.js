@@ -3,12 +3,15 @@ const Todo = require('../models/todoModel');
 
 exports.getAllTodos = async (req, res) => {
   const authorId = req.user._id;
-
   try {
     const todos = await Todo.find({ author: authorId }).sort({ updated: -1 });
-    res.json({ data: todos });
+    if (!todos) {
+      return res.json({ data: [] });
+    }
+    return res.json({ data: todos });
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    // REVIEW status code
+    return res.status(404).json({ message: error.message });
   }
 };
 
@@ -29,6 +32,7 @@ exports.updateTodo = async (req, res) => {
   const { id } = req.params;
   const { title, body } = req.body;
   const updateDate = Date.now();
+
   try {
     const updatedTodo = await Todo.findOneAndUpdate(
       { uuid: id },
@@ -38,6 +42,7 @@ exports.updateTodo = async (req, res) => {
     if (!updatedTodo) res.status(404).json('No such ID');
     res.json(updatedTodo);
   } catch (error) {
+    // REVIEW status code
     res.status(404).json({ message: error.message });
   }
 };
@@ -47,9 +52,11 @@ exports.deleteTodo = async (req, res) => {
 
   try {
     const todo = await Todo.findOneAndDelete({ uuid: id });
+    // REVIEW status code
     if (!todo) res.status(404).json('No such ID');
     res.sendStatus(204);
   } catch (error) {
+    // REVIEW status code
     res.send(404).json({ message: error.message });
   }
 };
