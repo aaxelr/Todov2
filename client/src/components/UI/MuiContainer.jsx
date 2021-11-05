@@ -11,6 +11,7 @@ function MuiContainer({ children }) {
           display: 'flex',
           flexDirection: 'column',
           bgcolor: '#ddd',
+          margin: '.5rem',
         }}
       >
         {children}
