@@ -21,6 +21,7 @@ app.use(cors({
   origin: corsOrigin,
   credentials: true,
 }));
+// NOTE set cookie to secure & httpOnly before deploying?
 app.use(session({
   secret: process.env.SESSION_SECRET,
   store: MongoStore.create({
@@ -29,7 +30,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: {
-    maxAge: 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 2,
   },
 }));
 app.use(passport.initialize());
