@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Button, Typography } from '@mui/material';
 import { setIsAuthenticated, setUser } from '../app/auth';
+import Header from '../components/Header';
 import MuiContainer from '../components/UI/MuiContainer';
 
 function LoginSuccessPage() {
@@ -31,13 +32,15 @@ function LoginSuccessPage() {
 
   return (
     <div>
+      <Header />
       {errors && errors.map((error) => <p>{error.message}</p>)}
       {user && (
         <MuiContainer>
           <Typography component="p" variant="body2">
-            Successfully Logged in as
-            {' '}
-            {user.fullName}
+            Welcome!
+          </Typography>
+          <Typography component="p" variant="body2">
+            Continue to the Dashboard to create, read, update and delete todos!
           </Typography>
           <Button
             variant="contained"
