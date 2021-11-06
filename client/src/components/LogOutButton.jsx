@@ -17,7 +17,7 @@ function LogOutButton() {
       .catch((error) => {
         setErrors((prevErrors) => [...prevErrors, error]);
       });
-    console.log(response);
+
     if (response && response.status === 205) {
       dispatch(setIsAuthenticated(false));
       dispatch(setUser(null));
