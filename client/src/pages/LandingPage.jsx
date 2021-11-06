@@ -5,6 +5,8 @@ import Header from '../components/Header';
 import MuiContainer from '../components/UI/MuiContainer';
 
 function LandingPage() {
+  const API_URL = process.env.REACT_API_URL || 'http://localhost:5000';
+
   return (
     <MuiContainer>
       <Header />
@@ -15,7 +17,7 @@ function LandingPage() {
         Log in or sign up to continue.
       </Typography>
       <Button
-        href="http://localhost:5000/auth/google"
+        href={`${API_URL}/auth/google`}
         variant="contained"
       >
         Sign in with Goggles 😎
