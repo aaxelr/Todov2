@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Button, Typography } from '@mui/material';
+import Header from '../components/Header';
 import NewTodo from '../components/NewTodo';
 import Todos from '../components/Todos';
 import MuiContainer from '../components/UI/MuiContainer';
@@ -35,22 +37,43 @@ function DashBoardPage() {
   };
 
   useEffect(() => {
-    getTodos();
+    if (user) {
+      getTodos();
+    }
   }, []);
+
+  if (!user) {
+    return (
+      <MuiContainer>
+        <Header />
+        <Typography>
+          You have to log in to view the Dashboard
+        </Typography>
+        <Button
+          variant="contained"
+          sx={{
+            margin: '1.5rem',
+          }}
+        >
+          <Link to="/" style={{ color: '#fff' }}>
+            Go to Landing page.
+          </Link>
+        </Button>
+      </MuiContainer>
+    );
+  }
 
   return (
     <MuiContainer>
-      {user && (
-        <Typography component="p" variant="body2">
-          Logged in as
-          {' '}
-          {user.fullName}
-        </Typography>
-      )}
+      <Header />
       <NewTodo onAddTodo={addTodo} />
       {todos
         && (
-        <Todos todos={todos} onDeleteTodo={deleteTodo} onEditTodo={editTodo} />
+          <Todos
+            todos={todos}
+            onDeleteTodo={deleteTodo}
+            onEditTodo={editTodo}
+          />
         )}
     </MuiContainer>
   );
