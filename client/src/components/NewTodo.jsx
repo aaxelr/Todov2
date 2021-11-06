@@ -24,6 +24,9 @@ function NewTodo({ onAddTodo }) {
           onClick={handleToggleTodoForm}
           variant="contained"
           startIcon={<AddCircleIcon />}
+          sx={{
+            margin: '1.5rem',
+          }}
         >
           Add new Todo
         </Button>
