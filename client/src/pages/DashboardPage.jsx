@@ -30,7 +30,6 @@ function DashBoardPage() {
   };
 
   const editTodo = async (todo) => {
-    console.log(todo);
     await axios.patch(`${API_URL}/api/v1/todos/${todo.uuid}`, todo);
     getTodos();
   };

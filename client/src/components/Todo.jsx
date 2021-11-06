@@ -22,7 +22,6 @@ function Todo({ todo, onDeleteTodo, onEditTodo }) {
 
   const handleToggleEditTodo = () => {
     setEditTodo((prevState) => !prevState);
-    console.log(editTodo);
   };
 
   const handleDeleteTodo = () => {
