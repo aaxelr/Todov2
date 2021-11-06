@@ -20,4 +20,11 @@ router
   .route('/user')
   .get(isAuthenticated, getUser);
 
+router
+  .route('/logout')
+  .get((req, res) => {
+    req.logout();
+    res.sendStatus(205);
+  });
+
 module.exports = router;
