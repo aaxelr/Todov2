@@ -29,6 +29,12 @@ function DashBoardPage() {
     getTodos();
   };
 
+  const editTodo = async (todo) => {
+    console.log(todo);
+    await axios.patch(`${API_URL}/api/v1/todos/${todo.uuid}`, todo);
+    getTodos();
+  };
+
   useEffect(() => {
     getTodos();
   }, []);
@@ -44,7 +50,9 @@ function DashBoardPage() {
       )}
       <NewTodo onAddTodo={addTodo} />
       {todos
-        && <Todos todos={todos} onDeleteTodo={deleteTodo} />}
+        && (
+        <Todos todos={todos} onDeleteTodo={deleteTodo} onEditTodo={editTodo} />
+        )}
     </MuiContainer>
   );
 }
