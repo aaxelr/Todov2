@@ -10,12 +10,19 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import MuiContainer from './UI/MuiContainer';
+import EditTodoModal from './EditTodoModal';
 
-function Todo({ todo, onDeleteTodo }) {
+function Todo({ todo, onDeleteTodo, onEditTodo }) {
   const [showTodo, setShowTodo] = useState(false);
+  const [editTodo, setEditTodo] = useState(false);
 
-  const handleToggleTodo = () => {
+  const handleToggleShowTodo = () => {
     setShowTodo((prevState) => !prevState);
+  };
+
+  const handleToggleEditTodo = () => {
+    setEditTodo((prevState) => !prevState);
+    console.log(editTodo);
   };
 
   const handleDeleteTodo = () => {
@@ -42,7 +49,7 @@ function Todo({ todo, onDeleteTodo }) {
             {todo.title}
           </Typography>
           <Button
-            onClick={handleToggleTodo}
+            onClick={handleToggleShowTodo}
             color="primary"
             variant={showTodo ? 'outlined' : 'contained'}
           >
@@ -72,11 +79,19 @@ function Todo({ todo, onDeleteTodo }) {
               variant="contained"
               startIcon={<EditIcon />}
               color="primary"
-              type="submit"
+              onClick={handleToggleEditTodo}
             >
               Edit Todo
             </Button>
           </ButtonGroup>
+          {editTodo && (
+            <EditTodoModal
+              todo={todo}
+              editTodo={editTodo}
+              onEditTodo={onEditTodo}
+              onToggleEditTodo={handleToggleEditTodo}
+            />
+          )}
         </div>
         )}
       </Box>
@@ -95,6 +110,7 @@ Todo.propTypes = {
     uuid: PropTypes.string,
   }).isRequired,
   onDeleteTodo: PropTypes.func.isRequired,
+  onEditTodo: PropTypes.func.isRequired,
 };
 
 export default Todo;
