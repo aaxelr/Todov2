@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Button, Typography } from '@mui/material';
 import { setIsAuthenticated, setUser } from '../app/auth';
+import MuiContainer from '../components/UI/MuiContainer';
 
 function LoginSuccessPage() {
   const { user } = useSelector((state) => state.auth);
@@ -11,8 +13,6 @@ function LoginSuccessPage() {
 
   const API_URL = process.env.REACT_API_URL || 'http://localhost:5000';
 
-  // TODO finish Google oAuth setup
-  // NOTE put authenticateUser somewhere else?
   const authenticateUser = async () => {
     const response = await axios.get(`${API_URL}/auth/user`, { withCredentials: true })
       .catch((error) => {
@@ -33,16 +33,23 @@ function LoginSuccessPage() {
     <div>
       {errors && errors.map((error) => <p>{error.message}</p>)}
       {user && (
-        <div>
-          <p>
+        <MuiContainer>
+          <Typography component="p" variant="body2">
             Successfully Logged in as
             {' '}
             {user.fullName}
-          </p>
-          <Link to="/dashboard">
-            Continue to Dashboard
-          </Link>
-        </div>
+          </Typography>
+          <Button
+            variant="contained"
+            sx={{
+              margin: '1.5rem',
+            }}
+          >
+            <Link to="/dashboard" style={{ color: '#fff' }}>
+              Continue to Dashboard
+            </Link>
+          </Button>
+        </MuiContainer>
       )}
     </div>
   );
