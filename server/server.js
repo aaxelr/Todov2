@@ -7,7 +7,7 @@ const db = process.env.DB_URI;
 
 mongoose.connect(db)
   .then(() => {
-    app.listen(5000, () => {
+    app.listen(port, () => {
       // eslint-disable-next-line no-console
       console.log('Connected to database');
       // eslint-disable-next-line no-console
