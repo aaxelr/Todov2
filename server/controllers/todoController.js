@@ -10,8 +10,7 @@ exports.getAllTodos = async (req, res) => {
     }
     return res.json({ data: todos });
   } catch (error) {
-    // REVIEW status code
-    return res.status(404).json({ message: error.message });
+    return res.status(400).json({ message: error.message });
   }
 };
 
@@ -24,7 +23,7 @@ exports.createTodo = async (req, res) => {
     await newTodo.save();
     res.status(201).json(newTodo);
   } catch (error) {
-    res.status(409).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -39,11 +38,10 @@ exports.updateTodo = async (req, res) => {
       { title, body, updated: updateDate },
       { new: true },
     );
-    if (!updatedTodo) res.status(404).json('No such ID');
+    if (!updatedTodo) res.status(400).json('No such ID');
     res.json(updatedTodo);
   } catch (error) {
-    // REVIEW status code
-    res.status(404).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -52,11 +50,9 @@ exports.deleteTodo = async (req, res) => {
 
   try {
     const todo = await Todo.findOneAndDelete({ uuid: id });
-    // REVIEW status code
-    if (!todo) res.status(404).json('No such ID');
+    if (!todo) res.status(400).json('No such ID');
     res.sendStatus(204);
   } catch (error) {
-    // REVIEW status code
-    res.send(404).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
