@@ -19,8 +19,8 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "node main",
-    "dev": "npx nodemon main",
+    "start": "node server",
+    "dev": "npx nodemon server",
     "lint": "npx eslint --ignore-path .gitignore .",
     "lint-fix": "npx eslint --ignore-path .gitignore . --fix"
   },
