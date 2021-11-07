@@ -12,7 +12,7 @@ function LoginSuccessPage() {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
 
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const authenticateUser = async () => {
     const response = await axios.get(`${API_URL}/auth/user`, { withCredentials: true })

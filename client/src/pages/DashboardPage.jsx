@@ -13,7 +13,7 @@ axios.defaults.withCredentials = true;
 function DashBoardPage() {
   const { user } = useSelector((state) => state.auth);
   const [todos, setTodos] = useState([]);
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const addTodo = async (todo) => {
     await axios.post(`${API_URL}/api/v1/todos`, todo);
