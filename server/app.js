@@ -1,9 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const session = require('express-session');
 const passport = require('passport');
-const MongoStore = require('connect-mongo');
+const session = require('./config/session');
 require('./auth/passportGoogle');
 const { isAuthenticated } = require('./middlewares/isAuthenticated');
 
@@ -24,20 +23,7 @@ app.use(cors({
 
 app.set('trust proxy', 1);
 
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  store: MongoStore.create({
-    mongoUrl: process.env.DB_URI,
-  }),
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    maxAge: 1000 * 60 * 60 * 24 * 2,
-    httpOnly: true,
-    secure: true,
-    sameSite: 'none',
-  },
-}));
+app.use(session);
 
 app.use(passport.initialize());
 app.use(passport.session());
