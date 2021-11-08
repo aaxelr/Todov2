@@ -15,6 +15,7 @@ function NewTodo({ onAddTodo }) {
 
   const handleSaveTodo = (todoData) => {
     onAddTodo(todoData);
+    handleToggleTodoForm();
   };
 
   return (
