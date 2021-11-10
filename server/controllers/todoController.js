@@ -3,6 +3,7 @@ const Todo = require('../models/todoModel');
 
 exports.getAllTodos = async (req, res) => {
   const authorId = req.user._id;
+
   try {
     const todos = await Todo.find({ author: authorId }).sort({ updated: -1 });
     if (!todos) {
