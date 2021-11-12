@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { v4 as uuid } from 'uuid';
 import { Button, Typography } from '@mui/material';
 import { setIsAuthenticated, setUser } from '../app/auth';
 import Header from '../components/Header';
@@ -17,7 +18,8 @@ function LoginSuccessPage() {
   const authenticateUser = async () => {
     const response = await axios.get(`${API_URL}/auth/user`, { withCredentials: true })
       .catch((error) => {
-        setErrors((prevErrors) => [...prevErrors, error]);
+        const newError = { id: uuid(), error };
+        setErrors((prevErrors) => [...prevErrors, newError]);
       });
 
     if (response && response.data) {
@@ -33,7 +35,7 @@ function LoginSuccessPage() {
   return (
     <div>
       <Header />
-      {errors && errors.map((error) => <p>{error.message}</p>)}
+      {errors && errors.map(({ id, error }) => <p key={id}>{error.message}</p>)}
       {user && (
         <MuiContainer>
           <Typography component="p" variant="body2">
