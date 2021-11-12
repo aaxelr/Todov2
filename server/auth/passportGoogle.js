@@ -11,25 +11,25 @@ passport.use(new GoogleStrategy({
   callbackURL,
   passReqToCallback: true,
 },
-async (req, accessToken, refreshToken, profile, done) => {
-  const newUser = {
-    fullName: `${profile.name.givenName} ${profile.name.familyName}`,
-    email: profile.emails[0].value,
-    googleId: profile.id,
-  };
-
-  try {
-    let user = await User.findOne({ googleId: profile.id });
-    if (user) {
-      done(null, user);
-    } else {
-      user = await User.create(newUser);
-      done(null, user);
+(req, accessToken, refreshToken, profile, done) => {
+  User.findOne({ googleId: profile.id }, async (error, user) => {
+    if (error) {
+      return done(error, null);
     }
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Something went wrong: ', error);
-  }
+
+    if (!user) {
+      const newUser = new User({
+        fullName: `${profile.name.givenName} ${profile.name.familyName}`,
+        email: profile.emails[0].value,
+        googleId: profile.id,
+      });
+
+      await newUser.save();
+      done(null, newUser);
+    }
+
+    return done(null, user);
+  });
 }));
 
 // eslint-disable-next-line no-underscore-dangle
